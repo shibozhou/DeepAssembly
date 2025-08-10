@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.pytest_cache/
+.coverage
+
+# Node
+node_modules/
+npm-debug.log*
+.next/
+out/
+build/
+dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Environment
+.env
+.env.*
+
+# Logs
+logs/
+*.log
+
+# Build artifacts
+*.o
+*.a
+target/
+cmake-build-*/
+
+# Temporary
+tmp/
+temp/
+cache/

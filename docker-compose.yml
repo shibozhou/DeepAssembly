@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  orchestrator:
+    build: ./backend/orchestrator
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://user:pass@db:5432/deepassembly
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - db
+      - redis
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+
+  pl-engine:
+    build: ./backend/pl-engine
+    ports:
+      - "8001:8001"
+
+  performance-agent:
+    build: ./backend/performance-agent
+    ports:
+      - "8002:8002"
+    privileged: true  # For hardware counters
+
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=deepassembly
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
